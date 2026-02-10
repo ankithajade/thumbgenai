@@ -1,4 +1,7 @@
+"use client";
+import { useState } from "react";
 export default function Home() {
+  const [title, setTitle] = useState("");
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
       <div className="w-full max-w-xl space-y-6">
@@ -15,17 +18,24 @@ export default function Home() {
 
         {/* Input box */}
         <input
-          type="text"
-          placeholder="Enter your video title..."
-          className="w-full p-3 rounded-md bg-gray-900 border border-gray-700 focus:outline-none focus:border-white"
+        type="text"
+        placeholder="Enter your video title..."
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="w-full p-3 rounded-md bg-gray-900 border border-gray-700 focus:outline-none focus:border-white"
         />
+
 
         {/* Button */}
         <button
-          className="w-full py-3 rounded-md bg-white text-black font-semibold hover:bg-gray-200 transition"
+         onClick={() => {
+         console.log("Video title:", title);
+        }}
+        className="w-full py-3 rounded-md bg-white text-black font-semibold hover:bg-gray-200 transition"
         >
-          Generate Thumbnail
+         Generate Thumbnail
         </button>
+
 
       </div>
     </main>
