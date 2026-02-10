@@ -2,6 +2,7 @@
 import { useState } from "react";
 export default function Home() {
   const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
       <div className="w-full max-w-xl space-y-6">
@@ -28,13 +29,24 @@ export default function Home() {
 
         {/* Button */}
         <button
-         onClick={() => {
-         console.log("Video title:", title);
-        }}
-        className="w-full py-3 rounded-md bg-white text-black font-semibold hover:bg-gray-200 transition"
-        >
-         Generate Thumbnail
-        </button>
+  disabled={!title || loading}
+  onClick={() => {
+    setLoading(true);
+
+    setTimeout(() => {
+      console.log("Video title:", title);
+      setLoading(false);
+    }, 1500);
+  }}
+  className={`w-full py-3 rounded-md font-semibold transition
+    ${loading || !title
+      ? "bg-gray-600 text-gray-300 cursor-not-allowed"
+      : "bg-white text-black hover:bg-gray-200"
+    }`}
+>
+  {loading ? "Generating..." : "Generate Thumbnail"}
+</button>
+
 
 
       </div>
