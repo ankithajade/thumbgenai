@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function Home() {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
+  const [generated, setGenerated] = useState(false);
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
       <div className="w-full max-w-xl space-y-6">
@@ -35,6 +36,7 @@ export default function Home() {
 
     setTimeout(() => {
       console.log("Video title:", title);
+      setGenerated(true);
       setLoading(false);
     }, 1500);
   }}
@@ -46,6 +48,23 @@ export default function Home() {
 >
   {loading ? "Generating..." : "Generate Thumbnail"}
 </button>
+      {/* Results Section  */}
+  {generated && (
+  <div className="mt-8 space-y-4">
+    <h2 className="text-xl font-semibold text-center">
+      Generated Thumbnails
+    </h2>
+
+    <div className="grid grid-cols-2 gap-4">
+      <div className="h-40 bg-gray-800 rounded-md flex items-center justify-center text-gray-400">
+        Thumbnail 1
+      </div>
+      <div className="h-40 bg-gray-800 rounded-md flex items-center justify-center text-gray-400">
+        Thumbnail 2
+      </div>
+    </div>
+  </div>
+)}
 
 
 
