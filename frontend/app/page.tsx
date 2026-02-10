@@ -4,6 +4,8 @@ export default function Home() {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [generated, setGenerated] = useState(false);
+  const [images, setImages] = useState<string[]>([]);
+
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center px-4">
       <div className="w-full max-w-xl space-y-6">
@@ -36,8 +38,14 @@ export default function Home() {
 
     setTimeout(() => {
       console.log("Video title:", title);
-      setGenerated(true);
-      setLoading(false);
+      setImages([
+  "https://picsum.photos/400/225?random=1",
+  "https://picsum.photos/400/225?random=2",
+]);
+
+setGenerated(true);
+setLoading(false);
+
     }, 1500);
   }}
   className={`w-full py-3 rounded-md font-semibold transition
@@ -56,13 +64,16 @@ export default function Home() {
     </h2>
 
     <div className="grid grid-cols-2 gap-4">
-      <div className="h-40 bg-gray-800 rounded-md flex items-center justify-center text-gray-400">
-        Thumbnail 1
-      </div>
-      <div className="h-40 bg-gray-800 rounded-md flex items-center justify-center text-gray-400">
-        Thumbnail 2
-      </div>
-    </div>
+  {images.map((src, index) => (
+    <img
+      key={index}
+      src={src}
+      alt={`Generated thumbnail ${index + 1}`}
+      className="rounded-md"
+    />
+  ))}
+</div>
+
   </div>
 )}
 
