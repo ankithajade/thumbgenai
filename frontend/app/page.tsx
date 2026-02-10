@@ -34,20 +34,28 @@ export default function Home() {
         <button
   disabled={!title || loading}
   onClick={() => {
-    setLoading(true);
+  setLoading(true);
 
-    setTimeout(() => {
-      console.log("Video title:", title);
-      setImages([
-  "https://picsum.photos/400/225?random=1",
-  "https://picsum.photos/400/225?random=2",
-]);
+  fetch("http://localhost:5000/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      setImages(data.images);
+      setGenerated(true);
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+}}
 
-setGenerated(true);
-setLoading(false);
-
-    }, 1500);
-  }}
   className={`w-full py-3 rounded-md font-semibold transition
     ${loading || !title
       ? "bg-gray-600 text-gray-300 cursor-not-allowed"
